@@ -17,7 +17,7 @@ Install Python3 (e.g. 3.10)
 cd "<your devops_project2 root directory>"
 py -m venv diagram/env
 source diagram/env/Scripts/activate
-pip install diagrams
+pip install -r ./diagram/requirements.txt
 ```
 
 Install Chocolatey https://chocolatey.org/

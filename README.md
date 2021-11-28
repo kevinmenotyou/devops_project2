@@ -15,9 +15,16 @@ Install Python3 (e.g. 3.10)
 
 ```bash
 cd "<your devops_project2 root directory>"
-py -m venv env
-source env/Scripts/activate
+py -m venv diagram/env
+source diagram/env/Scripts/activate
 pip install diagrams
+```
+
+Install Chocolatey https://chocolatey.org/
+
+Install graphviz
+```bash
+choco install graphviz
 ```
 
 ### Terraform

@@ -1,7 +1,6 @@
 # diagram.py
 
 import os
-import sys
 from diagrams import Diagram, Cluster, Edge
 from diagrams.azure.compute import VMLinux
 from diagrams.custom import Custom

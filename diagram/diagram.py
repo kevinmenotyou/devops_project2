@@ -1,5 +1,7 @@
 # diagram.py
+
 import os
+import sys
 from diagrams import Diagram, Cluster, Edge
 from diagrams.azure.compute import VMLinux
 from diagrams.custom import Custom
@@ -28,7 +30,7 @@ docker_cluster_graph = {
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    with Diagram("DevOps Project 2 Diagram", show=False, filename="overview_diagram", direction="LR", graph_attr=graph):
+    with Diagram("DevOps Project 2 Diagram", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
       with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph):
@@ -84,7 +86,8 @@ def main():
         [TestPlans("Validation Tests"), Pipelines("Jobs")]
         
       new_ansible_img("Ansible Script") >> Edge(label="configure") >> jenkins_agent
-      
+    
+    return 0
       
 def new_terraform_img(text):
     return Custom(text, workingDirectory + "/resources/terraform/Terraform_VerticalLogo_Color_RGB.png")

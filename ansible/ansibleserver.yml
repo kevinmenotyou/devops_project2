@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Azure Get private IPS
+    shell: az vm list-ip-addresses --query [].virtualMachine.network.privateIpAddresses -o tsv
+    register: my_private_ips
+  - name: Add mappings to /etc/ansible/hosts
+    connection: local
+    blockinfile:
+      path: /etc/ansible/hosts
+      block: "{{ my_private_ips.stdout }}"

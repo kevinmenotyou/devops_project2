@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      update-cache: yes
+      upgrade: yes
+      cache_valid_time: 86400 #One day
+    become: true
+  - name: Install Terraform
+    apt:
+      name: terraform
+      state: present
+  - name: Install Docker
+    apt:
+      name: docker
+      state: present

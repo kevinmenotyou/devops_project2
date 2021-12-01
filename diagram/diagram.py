@@ -1,4 +1,5 @@
 # diagram.py
+import os
 from diagrams import Diagram, Cluster, Edge
 from diagrams.azure.compute import VMLinux
 from diagrams.custom import Custom
@@ -23,6 +24,8 @@ cluster_graph = {
 docker_cluster_graph = {
     "fontsize": "20",
 }
+
+workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
     with Diagram("DevOps Project 2 Diagram", show=False, filename="overview_diagram", direction="LR", graph_attr=graph):
@@ -84,16 +87,16 @@ def main():
       
       
 def new_terraform_img(text):
-    return Custom(text, "./resources/terraform/Terraform_VerticalLogo_Color_RGB.png")
+    return Custom(text, workingDirectory + "/resources/terraform/Terraform_VerticalLogo_Color_RGB.png")
 
 def new_docker_img(text):
-    return Custom(text, "./resources/docker/vertical-logo-monochromatic.png")  
+    return Custom(text, workingDirectory + "/resources/docker/vertical-logo-monochromatic.png")  
     
 def new_jenkins_img(text):
-    return Custom(text, "./resources/jenkins/128x128/logo.png")
+    return Custom(text, workingDirectory + "/resources/jenkins/128x128/logo.png")
 
 def new_ansible_img(text):
-    return Custom(text, "./resources/ansible/Ansible-Mark-RGB_Pool.png")
+    return Custom(text, workingDirectory + "/resources/ansible/Ansible-Mark-RGB_Pool.png")
     
 if __name__ == "__main__":
     main()

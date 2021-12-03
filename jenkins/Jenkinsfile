@@ -1,0 +1,37 @@
+pipeline {
+
+    environment {
+     GITHUB_API_URL='https://api.github.com/repos/kevinmenotyou/devops_assignment2'
+    }
+  
+    agent {
+        node {
+            label 'test-jenkins-agent1'
+        }
+    }
+
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '16', 
+                    numToKeepStr: '10'
+            )
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}

@@ -16,3 +16,7 @@
     apt:
       name: docker
       state: present
+  - name: Install Python3
+    apt:
+      name: python3
+      state: present

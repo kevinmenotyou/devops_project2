@@ -33,7 +33,7 @@ choco install graphviz
 ### Docker
 //TODO
 
-### Kubernetes
+### Jenkins
 //TODO
 
 ### Ansible

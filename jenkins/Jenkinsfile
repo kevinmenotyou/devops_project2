@@ -1,7 +1,7 @@
 pipeline {
 
     environment {
-     GITHUB_API_URL='https://api.github.com/repos/kevinmenotyou/devops_assignment2'
+     GITHUB_URL='github.com/kevinmenotyou/devops_project2'
     }
   
     agent {
@@ -30,11 +30,11 @@ pipeline {
 				sh 'pip3 install diagrams'
 				sh 'python3 diagram/diagram.py'
 				sh """ 
-					export GIT_COMMITTER_NAME=SVC_AZUREUSER_ROBOT
-					export GIT_COMMITTER_EMAIL=fake@fakeemail.com
+					git config --global user.email "fake@fakeemail.com"
+					git config --global user.name "SVC_ROBOTUSER"
 					git add output
 					git commit -m '[robot] Submit updated diagram from build machine'
-					git push origin HEAD
+					git push https://$USERNAME:$PASSWORD@$GITHUB_URL origin HEAD
 				"""
 			}
         }

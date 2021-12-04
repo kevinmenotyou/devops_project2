@@ -27,7 +27,7 @@ pipeline {
 			}
 			steps {
 				echo 'Building Diagram..'
-				py diagram/diagram.py
+				sh 'py diagram/diagram.py'
 			}
         }
     }

@@ -49,6 +49,7 @@ pipeline {
 			steps {
 				echo 'Building Docker..'
 				sh """
+				  sudo chmod 666 /var/run/docker.sock
 				  docker pull nginx
 				  docker build -t devops-project-diagram ./docker
 				"""

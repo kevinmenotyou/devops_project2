@@ -20,7 +20,6 @@
     register: dist_release_codename
   - shell: dpkg --print-architecture
     register: apt_architecture
-  - debug: msg="deb [arch={{ apt_architecture.stdout }}] https://apt.releases.hashicorp.com {{ dist_release_codename.stdout }} main"
   - name: Add Terraform Repository
     apt_repository:
       repo: "deb [arch={{ apt_architecture.stdout }}] https://apt.releases.hashicorp.com {{ dist_release_codename.stdout }} main"

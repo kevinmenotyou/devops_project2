@@ -17,8 +17,22 @@ pipeline {
             )
     }
 
+
     stages {
-        stage('Build') {
+        stage('Diagram') {
+			when {
+				allOf {
+					changeset "../diagram/**"
+					not {
+					    changeset pattern: "../diagram/overview_diagram", caseSensitive: true
+				    }
+				}
+			}
+			steps {
+				echo 'Building Diagram..'
+			}
+        }
+		stage('Building') {
             steps {
                 echo 'Building..'
             }

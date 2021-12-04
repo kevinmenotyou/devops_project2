@@ -20,7 +20,7 @@ pipeline {
     stages {
 	    stage ('Ensure Terraform Infrastructure is Spawned') {
 		    environment {
-				REGISTRY_RUNNING = docker container inspect -f {{.State.Running}} LocalDockerRegistry
+				REGISTRY_RUNNING =$(docker container inspect -f {{.State.Running}} LocalDockerRegistry)
 			}
 		    steps {
 			    sh """

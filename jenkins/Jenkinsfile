@@ -28,9 +28,9 @@ pipeline {
 					terraform validate
 					terraform destroy -input=false -auto-approve
 					
-					export REGISTRY_RUNNING=\$(docker container inspect -f {{.State.Running}} LocalDockerRegistry || echo false)
+					export "REGISTRY_RUNNING=\$(docker container inspect -f {{.State.Running}} LocalDockerRegistry || echo false)"
 					echo "REGISTRY_RUNNING is \$REGISTRY_RUNNING"
-					export DOCKER_IMAGE_EXISTS="\$(curl -X GET http://localhost:5000/v2/svc_azureuser/devops-diagram/tags/list | jq -r '.name' || echo false)"
+					export "DOCKER_IMAGE_EXISTS=\$(curl -X GET http://localhost:5000/v2/svc_azureuser/devops-diagram/tags/list | jq -r '.name' || echo false)"
 				    echo "DOCKER_IMAGE_EXISTS is \$DOCKER_IMAGE_EXISTS"
 					
 					if (\$REGISTRY_RUNNING = false && \$DOCKER_IMAGE_EXISTS = false)

@@ -25,7 +25,9 @@ pipeline {
 					terraform init
 					terraform validate
 					export REGISTRY_RUNNING=\$(docker container inspect -f {{.State.Running}} LocalDockerRegistry)
+					export DOCKER_IMAGE_EXISTS=\$(curl -X GET http://localhost:5000/v2/svc_azureuser/devops-diagram/tags/list)
 					echo "State of local registry running was set to: \$REGISTRY_RUNNING"
+					echo "\$DOCKER_IMAGE_EXISTS.errors.code"
 					terraform apply -input=false -auto-approve --var "local_registry_spawned=\$REGISTRY_RUNNING"
 				"""
 			}

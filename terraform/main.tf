@@ -34,7 +34,7 @@ resource "docker_image" "devops-diagram" {
 }
 
 resource "docker_container" "devops-diagram" {
-  image = docker_image.devops-diagram[0].latest
+  image = docker_image.devops-diagram[*].latest
   name  = var.devops_diagram_container_name
   ports {
     internal = 80

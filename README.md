@@ -28,10 +28,10 @@ choco install graphviz
 ```
 
 ### Terraform
-//TODO
+See terraform/ for config
 
 ### Docker
-//TODO
+See docker/Dockerfile for config
 
 ### Jenkins
 See jenkins/Jenkinsfile for config

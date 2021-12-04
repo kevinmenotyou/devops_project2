@@ -30,7 +30,7 @@ pipeline {
 				sh 'pip3 install diagrams'
 				sh 'python3 diagram/diagram.py'
 				sh 'git add output'
-				sh 'git commit -m "[robot] Submit updated diagram from build machine"'
+				sh 'git commit --author="[ROBOT] SVC_AZUREUSER <>" -m "[robot] Submit updated diagram from build machine"'
 				sh 'git push origin HEAD'
 			}
         }

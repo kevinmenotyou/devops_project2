@@ -29,7 +29,7 @@ cluster_graph_none = {
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    with Diagram("Build System Design - BM Output 27", show=False, filename=workingDirectory + "/../output/overview_diagram", direction="LR", graph_attr=graph):
+    with Diagram("Build System Design", show=False, filename=workingDirectory + "/../output/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
       with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph_blue):
@@ -41,7 +41,7 @@ def main():
             - docker_file \
             - new_ansible_img("Ansible Script")]        
       
-      img_github = Custom("GitHub Depot", "/resources/github/mark_png/GitHub-Mark-120px-plus.png")
+      img_github = Custom("GitHub Depot", workingDirectory + "/resources/github/mark_png/GitHub-Mark-120px-plus.png")
       
       ### BIG CLUSTER GRAPH ###
       with Cluster("Azure Cloud", graph_attr=big_cluster_graph):

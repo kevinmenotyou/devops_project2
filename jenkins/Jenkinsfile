@@ -17,9 +17,19 @@ pipeline {
             )
     }
 
-
     stages {
-        stage('Diagram') {
+	    stage ('Terraform - Ensure Local Docker Registry is Spawned') {
+		    steps {
+			    sh """
+					cd terraform/local_registry
+					terraform init
+					terraform validate		
+					terraform apply -input=false -auto-approve
+				"""
+			}
+		}
+		
+        stage('Python - Build Diagram') {
 			when {
 				allOf {
 					changeset "diagram/*"
@@ -33,6 +43,7 @@ pipeline {
 						git config --global user.name "SVC_ROBOTUSER"
 						pip3 install diagrams
 						python3 diagram/diagram.py
+						mv diagram/overview_diagram.png docker/html/overview_diagram.png
 						git add docker/html/overview_diagram.png
 						git commit -m '[robot] Submit updated diagram from build machine'
 						git push https://$USERNAME:$PASSWORD@$GITHUB_URL HEAD:$BRANCH_NAME
@@ -40,7 +51,7 @@ pipeline {
 				}
 			}
         }
-		stage('Docker') {
+		stage('Docker - Build Image') {
 			when {
 				allOf {
 					changeset "docker/**"
@@ -49,11 +60,30 @@ pipeline {
 			steps {
 				echo 'Building Docker..'
 				sh """
+				  echo Building Docker Image
 				  docker pull nginx
-				  docker build -t devops-project-diagram ./docker
+				  docker build -t devops-diagram ./docker
+				  echo Pushing to Local Repository: localhost:5000
+				  docker image tag devops-diagram:latest localhost:5000/svc_azureuser/devops-diagram:latest
+				  docker image push localhost:5000/svc_azureuser/devops-diagram:latest
 				"""
 			}
         }
-		//docker run --name devops-diagram -d -p 8080:80 devops-project-diagram
+		
+		stage ('Terraform - Spawn Docker DevOps-Diagram Nginx Image') {
+		    when {
+				allOf {
+					changeset "docker/**"
+				}
+			}
+			steps {
+			    sh """
+					cd terraform/local_registry_dependent
+					terraform init
+					terraform validate		
+					terraform apply -input=false -auto-approve
+				"""
+			}
+		}
     }
 }

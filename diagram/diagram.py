@@ -29,7 +29,7 @@ cluster_graph_none = {
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    with Diagram("Build System Design - DevOps 4", show=False, filename=workingDirectory + "/../docker/html/overview_diagram", direction="LR", graph_attr=graph):
+    with Diagram("Build System Design - Kevin & Akshay", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
       with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph_blue):
@@ -50,27 +50,31 @@ def main():
           with Cluster("Docker Cluster", graph_attr=cluster_graph_none):
             docker_img_1 = new_docker_img("HTML Server")
             docker_img_1 >> Custom("Diagram Hosted :9999", "")
-            docker_img_2 = new_docker_img("Container")
-            docker_img_2 >> Edge(label="execute") >>Pipelines("Jobs") >> Edge(label="validate") >> TestPlans("Tests")
+
             docker_img_3 = new_docker_img("Container")
             docker_img_3 >> Edge(label="create") >>Artifacts("Image") >> Edge(label="push") >> new_docker_img("Repository")
-            docker_containers_cluster = [docker_img_1, docker_img_2, docker_img_3]
+            docker_containers_cluster = [docker_img_1, docker_img_3]
           
           ### JENKINS CLUSTERS ###
           with Cluster("Jenkins Nodes", graph_attr=cluster_graph_none):
             jenkins_server = VMLinux("Jenkins Server")
             jenkins_agent = VMLinux("Jenkins Agent")
             jenkins_cluster = [jenkins_server, jenkins_agent]
-               
+          
+          docker_img_2 = new_docker_img("Container")
+          docker_img_2 >> Edge(label="execute") >>Pipelines("Jobs") >> Edge(label="validate") >> TestPlans("Tests")
+          
           img_terraform = new_terraform_img("Terraform")
           
           jenkins_agent \
+            >> Edge(label="running") \
+            >> docker_img_2
+          
+          jenkins_agent \
             >> Edge(label="call") \
-            >> img_terraform \
-            >> Edge(label="apply") \
-            >> docker_img_1
-            
-          img_terraform >> docker_img_2
+            >> img_terraform 
+  
+          img_terraform >> docker_img_1
           img_terraform >> docker_img_3
 
       github_cluster \

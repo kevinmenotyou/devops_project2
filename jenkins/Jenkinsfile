@@ -49,9 +49,6 @@ pipeline {
 			steps {
 				echo 'Building Docker..'
 				sh """
-				  sudo groupadd docker
-				  sudo usermod -aG docker svc_azureuser
-				  newgrp docker
 				  docker pull nginx
 				  docker build -t devops-project-diagram ./docker
 				"""

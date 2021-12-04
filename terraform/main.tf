@@ -2,25 +2,41 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = ">= 2.7"
+      version = "~= 2.7"
     }
   }
 }
 
 provider "docker" {
-  host = "npipe:////.//pipe//docker_engine"
+  registry_auth {
+    address     = "localhost:5000"
+  }
 }
 
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
+resource "docker_image" "registry" {
+  name         = "registry"
   keep_locally = false
 }
 
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = var.container_name
+resource "docker_container" "registry" {
+  image = docker_image.registry.latest
+  name  = var.registry_container_name
+  ports {
+    internal = 5000
+    external = 5000
+  }
+}
+
+resource "docker_image" "devops-diagram" {
+  name         = "devops-diagram"
+  keep_locally = false
+}
+
+resource "docker_container" "devops-diagram" {
+  image = docker_image.devops-diagram.latest
+  name  = var.devops_diagram_container_name
   ports {
     internal = 80
-    external = 8080
+    external = 9000
   }
 }

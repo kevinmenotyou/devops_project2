@@ -33,12 +33,27 @@ pipeline {
 						git config --global user.name "SVC_ROBOTUSER"
 						pip3 install diagrams
 						python3 diagram/diagram.py
-						git add output
+						git add docker/html/overview_diagram.png
 						git commit -m '[robot] Submit updated diagram from build machine'
 						git push https://$USERNAME:$PASSWORD@$GITHUB_URL HEAD:$BRANCH_NAME
 					"""
 				}
 			}
         }
+		stage('Docker') {
+			when {
+				allOf {
+					changeset "docker/*"
+				}
+			}
+			steps {
+				echo 'Building Docker..'
+				sh """
+				  docker pull nginx
+				  docker build -t devops-project-diagram ./docker
+				"""
+			}
+        }
+		//docker run --name devops-diagram -d -p 8080:80 devops-project-diagram
     }
 }

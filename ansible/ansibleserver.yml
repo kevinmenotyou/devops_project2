@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks:
   - name: Azure Get private IPS
-    shell: az vm list-ip-addresses --query [].virtualMachine.network.privateIpAddresses -o tsv
+    shell: az vm list --show-details --query "[?tags.role!='ansible' &&  tags.role!='jenkins_server'].privateIps" --output tsv
     register: my_private_ips
   - name: Add mappings to /etc/ansible/hosts
     connection: local

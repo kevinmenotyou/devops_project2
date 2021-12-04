@@ -34,7 +34,7 @@ choco install graphviz
 //TODO
 
 ### Jenkins
-//TODO
+See jenkins/Jenkinsfile for config
 
 ### Ansible
 

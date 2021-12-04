@@ -31,7 +31,7 @@ pipeline {
 					sh """ 
 						git config --global user.email "fake@fakeemail.com"
 						git config --global user.name "SVC_ROBOTUSER"
-						git checkout -f main
+						git fetch origin pull/$CHANGE_ID/head:generated
 						pip3 install diagrams
 						python3 diagram/diagram.py
 						git add output

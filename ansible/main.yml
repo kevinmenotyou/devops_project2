@@ -1,17 +1,40 @@
 ---
 
 - hosts: all
+  become: true
+  become_user: root
   tasks:
+  - shell: echo "The variable ansible_user is defined {{ ansible_user }}"
+    when: foo is defined
+  - fail: msg="The variable ansible_user is not defined"
+    when: ansible_user is undefined
+  - name: Update and upgrade apt packages
+    become_user: root
+    apt:
+      update-cache: yes
+      upgrade: yes
+      cache_valid_time: 86400 #One day
+  #Terraform
+  - shell: curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  - shell: lsb_release -cs
+    register: dist_release_codename
+  - shell: dpkg --print-architecture
+    register: apt_architecture
+  - debug: msg="deb [arch={{ apt_architecture.stdout }}] https://apt.releases.hashicorp.com {{ dist_release_codename.stdout }} main"
+  - name: Add Terraform Repository
+    apt_repository:
+      repo: "deb [arch={{ apt_architecture.stdout }}] https://apt.releases.hashicorp.com {{ dist_release_codename.stdout }} main"
+      state: present
   - name: Update and upgrade apt packages
     apt:
       update-cache: yes
       upgrade: yes
       cache_valid_time: 86400 #One day
-    become: true
   - name: Install Terraform
     apt:
-      name: terraform
+      pkg: terraform
       state: present
+  #Other Packages
   - name: Install Docker
     apt:
       name: docker
@@ -20,3 +43,8 @@
     apt:
       name: python3
       state: present
+  - name: Graphviz
+    apt:
+      name: graphviz
+      state: present
+                        

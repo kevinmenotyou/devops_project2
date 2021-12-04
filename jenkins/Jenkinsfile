@@ -29,8 +29,10 @@ pipeline {
 				echo 'Building Diagram..'
 				sh 'pip3 install diagrams'
 				sh 'python3 diagram/diagram.py'
+				sh 'export GIT_COMMITTER_NAME=SVC_AZUREUSER_ROBOT'
+				sh 'export GIT_COMMITTER_EMAIL=<>'
 				sh 'git add output'
-				sh 'git commit --author="[ROBOT] SVC_AZUREUSER <>" -m "[robot] Submit updated diagram from build machine"'
+				sh 'git commit -m "[robot] Submit updated diagram from build machine"'
 				sh 'git push origin HEAD'
 			}
         }

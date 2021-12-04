@@ -23,7 +23,6 @@ pipeline {
 			when {
 				allOf {
 					changeset "diagram/*"
-					not "output/*"
 				}
 			}
 			steps {
@@ -33,30 +32,6 @@ pipeline {
 				git commit -m "ROBOT: Add diagram artifact to repo"
 				git push
 			}
-        }
-		stage('Building') {
-		    when {
-				not "output/*"
-			}
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-		    when {
-				not "output/*"
-			}
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-		    when {
-			    not "output/*"
-			}
-            steps {
-                echo 'Deploying....'
-            }
         }
     }
 }

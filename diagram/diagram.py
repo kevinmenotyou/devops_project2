@@ -29,7 +29,7 @@ docker_cluster_graph = {
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    with Diagram("Build System Design - DevOps Project 2", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
+    with Diagram("Build System Design", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
       with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph):

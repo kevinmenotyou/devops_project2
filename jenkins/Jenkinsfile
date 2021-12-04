@@ -23,9 +23,9 @@ pipeline {
 			when {
 				allOf {
 					changeset "diagram/**"
-					not {
-					    changeset "diagram/overview_diagram"
-				    }
+					//not {
+					//    changeset "diagram/overview_diagram"
+				    //}
 				}
 			}
 			steps {

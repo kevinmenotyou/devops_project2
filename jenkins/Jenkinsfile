@@ -25,8 +25,8 @@ pipeline {
 					terraform init
 					terraform validate
 					registry_running=$(docker container inspect -f {{.State.Running}} LocalDockerRegistry)
-					echo "State of local registry running was set to: $registry_running"
-					terraform apply -input=false -auto-approve --var "local_registry_spawned=$registry_running"
+					echo "State of local registry running was set to: ${registry_running}"
+					terraform apply -input=false -auto-approve --var "local_registry_spawned=${registry_running}"
 				"""
 			}
 		}

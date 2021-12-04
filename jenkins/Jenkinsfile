@@ -22,7 +22,7 @@ pipeline {
         stage('Diagram') {
 			when {
 				allOf {
-					changeset "diagram/**"
+					changeset "diagram/*"
 					//not {
 					//    changeset "diagram/overview_diagram"
 				    //}

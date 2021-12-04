@@ -36,7 +36,7 @@
   #Other Packages
   - name: Install Docker
     apt:
-      name: docker
+      name: docker.io
       state: present
   - name: Install Python3
     apt:

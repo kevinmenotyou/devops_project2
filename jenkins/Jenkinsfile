@@ -1,7 +1,7 @@
 pipeline {
 
     environment {
-     GITHUB_API_URL='https://api.github.com/repos/kevinmenotyou/devops_assignment2'
+     GITHUB_URL='github.com/kevinmenotyou/devops_project2'
     }
   
     agent {
@@ -22,30 +22,23 @@ pipeline {
         stage('Diagram') {
 			when {
 				allOf {
-					changeset "../diagram/**"
-					not {
-					    changeset pattern: "../diagram/overview_diagram", caseSensitive: true
-				    }
+					changeset "diagram/*"
 				}
 			}
 			steps {
-				echo 'Building Diagram..'
+				withCredentials([usernamePassword(credentialsId: '167b833a-9420-453a-a1a3-4633984c9443', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+					echo 'Building Diagram..'
+					sh """ 
+						git config --global user.email "fake@fakeemail.com"
+						git config --global user.name "SVC_ROBOTUSER"
+						pip3 install diagrams
+						python3 diagram/diagram.py
+						git add output
+						git commit -m '[robot] Submit updated diagram from build machine'
+						git push https://$USERNAME:$PASSWORD@$GITHUB_URL HEAD:$BRANCH_NAME
+					"""
+				}
 			}
-        }
-		stage('Building') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
         }
     }
 }

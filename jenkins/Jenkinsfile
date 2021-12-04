@@ -24,7 +24,7 @@ pipeline {
 				allOf {
 					changeset "../diagram/**"
 					not {
-					    changeset pattern: "../diagram/overview_diagram", caseSensitive: true
+					    changeset "../diagram/overview_diagram"
 				    }
 				}
 			}

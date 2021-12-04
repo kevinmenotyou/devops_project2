@@ -19,19 +19,25 @@ pipeline {
 
 
     stages {
+	    when {
+		    not "output/*"
+		}
         stage('Diagram') {
 			when {
 				allOf {
 					changeset "diagram/*"
-					not { changeset "diagram/overview_diagram" }
 				}
 			}
 			steps {
 				echo 'Building Diagram..'
 				py diagram/diagram.py
+				git add output/*
+				git commit -m "ROBOT: Add diagram artifact to repo"
+				git push
 			}
         }
 		stage('Building') {
+		    
             steps {
                 echo 'Building..'
             }

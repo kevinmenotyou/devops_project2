@@ -78,7 +78,6 @@ pipeline {
 			}
 			steps {
 			    sh """
-					
 					cd terraform/local_registry_dependent
 					terraform init
 					terraform validate		

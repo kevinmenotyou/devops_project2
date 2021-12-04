@@ -33,6 +33,7 @@ pipeline {
 					sh """ 
 						git config --global user.email "fake@fakeemail.com"
 						git config --global user.name "SVC_ROBOTUSER"
+						git switch $BRANCH_NAME
 						git add output
 						git commit -m '[robot] Submit updated diagram from build machine'
 						git push https://$USERNAME:$PASSWORD@$GITHUB_URL

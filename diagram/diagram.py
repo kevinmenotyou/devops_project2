@@ -17,12 +17,12 @@ big_cluster_graph = {
     "bgcolor": "lightblue",
 }
 
-cluster_graph = {
+cluster_graph_blue = {
     "fontsize": "20",
-    "bgcolor": "lightgreen"
+    "bgcolor": "lightblue"
 }
 
-docker_cluster_graph = {
+cluster_graph_none = {
     "fontsize": "20",
 }
 
@@ -32,7 +32,7 @@ def main():
     with Diagram("Build System Design - BM Output 25", show=False, filename=workingDirectory + "/../output/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
-      with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph):
+      with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph_blue):
         jenkins_file = new_jenkins_img("Jenkins File")
         docker_file = new_docker_img("File")
         github_cluster = [Custom("Diagram", "") \
@@ -41,13 +41,13 @@ def main():
             - docker_file \
             - new_ansible_img("Ansible Script")]        
       
-      img_github = Custom("GitHub Depot", "./resources/github/mark_png/GitHub-Mark-120px-plus.png")
+      img_github = Custom("GitHub Depot", "/resources/github/mark_png/GitHub-Mark-120px-plus.png")
       
       ### BIG CLUSTER GRAPH ###
       with Cluster("Azure Cloud", graph_attr=big_cluster_graph):
       
           ### DOCKER CONTAINERS CLUSTERS###
-          with Cluster("Docker Cluster", graph_attr=docker_cluster_graph):
+          with Cluster("Docker Cluster", graph_attr=cluster_graph_none):
             docker_img_1 = new_docker_img("HTML Server")
             docker_img_1 >> Custom("Diagram Hosted :9999", "")
             docker_img_2 = new_docker_img("Container")
@@ -57,7 +57,7 @@ def main():
             docker_containers_cluster = [docker_img_1, docker_img_2, docker_img_3]
           
           ### JENKINS CLUSTERS ###
-          with Cluster("Jenkins Nodes", graph_attr=cluster_graph):
+          with Cluster("Jenkins Nodes", graph_attr=cluster_graph_none):
             jenkins_server = VMLinux("Jenkins Server")
             jenkins_agent = VMLinux("Jenkins Agent")
             jenkins_cluster = [jenkins_server, jenkins_agent]

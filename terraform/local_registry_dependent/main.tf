@@ -16,15 +16,13 @@ provider "docker" {
 resource "docker_image" "devops-diagram" {
   name         = "devops-diagram"
   keep_locally = false
-  count = "${var.local_registry_spawned == true ? 1 : 0}"
 }
 
 resource "docker_container" "devops-diagram" {
-  image = docker_image.devops-diagram[0].latest
+  image = docker_image.devops-diagram.latest
   name  = var.devops_diagram_container_name
   ports {
     internal = 80
     external = 9000
   }
-  count = "${var.local_registry_spawned == true ? 1 : 0}"
 }

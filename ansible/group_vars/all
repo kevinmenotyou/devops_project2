@@ -1,0 +1,4 @@
+ansible_connection: ssh
+ansible_user: svc_azureuser
+ansible_password: <redacted>
+ansible_port: 22

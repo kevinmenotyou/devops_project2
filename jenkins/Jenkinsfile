@@ -40,5 +40,20 @@ pipeline {
 				}
 			}
         }
+		stage('Docker') {
+			when {
+				allOf {
+					changeset "docker/*"
+				}
+			}
+			steps {
+				echo 'Building Docker..'
+				sh """
+				  docker pull nginx
+				  docker build -t devops-project-diagram ./docker
+				"""
+			}
+        }
+		//docker run --name devops-diagram -d -p 8080:80 devops-project-diagram
     }
 }

@@ -19,13 +19,11 @@ pipeline {
 
 
     stages {
-	    when {
-		    not "output/*"
-		}
         stage('Diagram') {
 			when {
 				allOf {
 					changeset "diagram/*"
+					not "output/*"
 				}
 			}
 			steps {
@@ -37,17 +35,25 @@ pipeline {
 			}
         }
 		stage('Building') {
-		    
+		    when {
+				not "output/*"
+			}
             steps {
                 echo 'Building..'
             }
         }
         stage('Test') {
+		    when {
+				not "output/*"
+			}
             steps {
                 echo 'Testing..'
             }
         }
         stage('Deploy') {
+		    when {
+			    not "output/*"
+			}
             steps {
                 echo 'Deploying....'
             }

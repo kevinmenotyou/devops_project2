@@ -18,7 +18,7 @@ pipeline {
     }
 
     stages {
-	    stage ('Ensure LocalRegistry is Spawned') {
+	    stage ('Terraform - Ensure Local Docker Registry is Spawned') {
 		    steps {
 			    sh """
 					cd terraform/local_registry
@@ -29,7 +29,7 @@ pipeline {
 			}
 		}
 		
-        stage('Diagram') {
+        stage('Python - Build Diagram') {
 			when {
 				allOf {
 					changeset "diagram/*"
@@ -51,7 +51,7 @@ pipeline {
 				}
 			}
         }
-		stage('Docker Image') {
+		stage('Docker - Build Image') {
 			when {
 				allOf {
 					changeset "docker/**"
@@ -70,7 +70,7 @@ pipeline {
 			}
         }
 		
-		stage ('Terraform - Spawn Docker-Diagram Nginx Image') {
+		stage ('Terraform - Spawn Docker DevOps-Diagram Nginx Image') {
 		    when {
 				allOf {
 					changeset "docker/**"

@@ -26,7 +26,7 @@ pipeline {
 				}
 			}
 			steps {
-				withCredentials([usernamePassword(credentialsId: '7e29a45b-5e3d-4ecb-a74e-72bbd1af406a', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+				withCredentials([usernamePassword(credentialsId: '167b833a-9420-453a-a1a3-4633984c9443', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 					echo 'Building Diagram..'
 					sh 'pip3 install diagrams'
 					sh 'python3 diagram/diagram.py'

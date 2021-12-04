@@ -33,11 +33,25 @@
     apt:
       pkg: terraform
       state: present
-  #Other Packages
+  #Docker
   - name: Install Docker
     apt:
       name: docker.io
       state: present
+  - name: Ensure group "docker" group exists
+    ansible.builtin.group:
+      name: docker
+      state: present
+  - name: Adding user svc_azureuser
+    user: name=svc_azureuser group=docker append=yes
+  - name: reset ssh connection to allow user changes to affect ansible user
+    ansible.builtin.meta:
+      reset_connection
+  - name: Give permissions to an existing file
+    ansible.builtin.file:
+      path: /var/run/docker.sock
+      mode: '666'
+  #Other Packages
   - name: Install Python3
     apt:
       name: python3
@@ -50,4 +64,3 @@
     apt:
       name: graphviz
       state: present
-                        

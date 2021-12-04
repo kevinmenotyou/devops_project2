@@ -45,7 +45,7 @@ pipeline {
 						git config --global user.name "SVC_ROBOTUSER"
 						pip3 install diagrams
 						python3 diagram/diagram.py
-						mv diagram/overview_diagram docker/html/overview_diagram
+						mv diagram/overview_diagram.png docker/html/overview_diagram.png
 						git add docker/html/overview_diagram.png
 						git commit -m '[robot] Submit updated diagram from build machine'
 						git push https://$USERNAME:$PASSWORD@$GITHUB_URL HEAD:$BRANCH_NAME

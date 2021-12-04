@@ -1,3 +1,5 @@
 diagram/env/*
-terraform/terraform.tfstate*
-terraform/.terraform*
+terraform/local_registry/terraform.tfstate*
+terraform/local_registry/.terraform*
+terraform/local_registry_dependent/terraform.tfstate*
+terraform/local_registry_dependent/.terraform*

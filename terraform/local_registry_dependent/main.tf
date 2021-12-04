@@ -28,18 +28,3 @@ resource "docker_container" "devops-diagram" {
   }
   count = "${var.local_registry_spawned == true ? 1 : 0}"
 }
-
-#SPAWN REGISTRY LAST
-resource "docker_image" "registry" {
-  name         = "registry"
-  keep_locally = false
-}
-
-resource "docker_container" "registry" {
-  image = docker_image.registry.latest
-  name  = var.registry_container_name
-  ports {
-    internal = 5000
-    external = 5000
-  }
-}

@@ -18,26 +18,17 @@ pipeline {
     }
 
     stages {
-	    stage ('Ensure Terraform Infrastructure is Spawned') {
+	    stage ('Ensure LocalRegistry is Spawned') {
 		    steps {
 			    sh """
 				    export CHECK_LOCAL_IMAGES=true
-				    
-					cd terraform
+					
+					cd terraform/local_registry
 					terraform init
 					terraform validate
 					terraform destroy -input=false -auto-approve
 					
-					export "REGISTRY_RUNNING=\$(docker container inspect -f {{.State.Running}} LocalDockerRegistry || echo false)"
-					echo "REGISTRY_RUNNING is \$REGISTRY_RUNNING"
-					export "DOCKER_IMAGE_EXISTS=\$(curl -X GET http://localhost:5000/v2/svc_azureuser/devops-diagram/tags/list | jq -r '.name' || echo false)"
-				    echo "DOCKER_IMAGE_EXISTS is \$DOCKER_IMAGE_EXISTS"
-					
-					if (\$REGISTRY_RUNNING = false && \$DOCKER_IMAGE_EXISTS = false)
-					  \$CHECK_LOCAL_IMAGES=false
-					fi
-					
-					terraform apply -input=false -auto-approve --var "local_registry_spawned=\$CHECK_LOCAL_IMAGES"
+					terraform apply -input=false -auto-approve
 				"""
 			}
 		}
@@ -79,12 +70,6 @@ pipeline {
 				  echo Pushing to Local Repository: localhost:5000
 				  docker image tag devops-diagram:latest localhost:5000/svc_azureuser/devops-diagram:latest
 				  docker image push localhost:5000/svc_azureuser/devops-diagram:latest
-				  
-				  //echo Refreshing Terraform Docker Infrastructure
-				  //cd terraform
-			      //terraform init
-				  //terraform validate
-				  //terraform apply -input=false -auto-approve
 				"""
 			}
         }

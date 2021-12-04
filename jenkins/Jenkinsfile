@@ -24,7 +24,7 @@ pipeline {
 				    cd terraform
 					terraform init
 					terraform validate
-					terraform apply
+					terraform apply -input=false -auto-approve
 				"""
 			}
 		}
@@ -71,7 +71,7 @@ pipeline {
 				  //cd terraform
 			      //terraform init
 				  //terraform validate
-				  //terraform apply
+				  //terraform apply -input=false -auto-approve
 				"""
 			}
         }

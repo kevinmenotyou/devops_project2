@@ -19,12 +19,14 @@ pipeline {
 
     stages {
 	    stage ('Ensure Terraform Infrastructure is Spawned') {
+		    environment {
+				REGISTRY_RUNNING = docker container inspect -f {{.State.Running}} LocalDockerRegistry
+			}
 		    steps {
 			    sh """
 				    cd terraform
 					terraform init
 					terraform validate
-					env.REGISTRY_RUNNING=docker container inspect -f {{.State.Running}} LocalDockerRegistry
 					echo "State of local registry running was set to: env.REGISTRY_RUNNING"
 					terraform apply -input=false -auto-approve --var "local_registry_spawned=env.REGISTRY_RUNNING"
 				"""

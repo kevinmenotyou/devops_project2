@@ -28,6 +28,7 @@ pipeline {
 			}
 			steps {
 				echo 'Building Diagram..'
+				py diagram/diagram.py
 			}
         }
 		stage('Building') {

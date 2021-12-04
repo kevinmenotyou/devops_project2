@@ -30,6 +30,7 @@ resource "docker_container" "registry" {
 resource "docker_image" "devops-diagram" {
   name         = "devops-diagram"
   keep_locally = false
+  count = "${var.local_registry_spawned == true ? 1 : 0}"
 }
 
 resource "docker_container" "devops-diagram" {
@@ -39,4 +40,5 @@ resource "docker_container" "devops-diagram" {
     internal = 80
     external = 9000
   }
+  count = "${var.local_registry_spawned == true ? 1 : 0}"
 }

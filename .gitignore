@@ -1,1 +1,3 @@
 diagram/env/*
+terraform/terraform.tfstate*
+terraform/.terraform*

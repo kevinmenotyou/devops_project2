@@ -67,8 +67,8 @@ def main():
           img_terraform = new_terraform_img("Terraform")
           
           jenkins_agent \
-            >> Edge(label="apply") \
-            >> docker_img_1
+            >> Edge(label="running") \
+            >> docker_img_2
           
           jenkins_agent \
             >> Edge(label="call") \

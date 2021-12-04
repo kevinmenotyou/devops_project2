@@ -64,7 +64,7 @@ pipeline {
 				sh """
 				  echo Building Docker Image
 				  docker pull nginx
-				  docker build -t devops-project-diagram ./docker
+				  docker build -t devops-diagram ./docker
 				  echo Pushing to Local Repository: localhost:5000
 				  docker image tag devops-diagram:latest localhost:5000/svc_azureuser/devops-diagram:latest
 				  docker image push localhost:5000/svc_azureuser/devops-diagram:latest

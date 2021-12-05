@@ -1,7 +1,7 @@
 # PRO690N1A - DevOps Project2 & Final Exam
 PRO690N1A – Introduction to DevOps Practices and Principles
 
-Kevin Hutchison and Akshaykumar Paladiya
+Kevin Hutchison
 
 Project 2 & Final Exam
 

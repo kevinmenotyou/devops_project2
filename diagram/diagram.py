@@ -29,7 +29,7 @@ cluster_graph_none = {
 workingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    with Diagram("Build System Design - Kevin and Akshay", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
+    with Diagram("Build System Design - Kevin & Akshay", show=False, filename=workingDirectory + "/overview_diagram", direction="LR", graph_attr=graph):
 
       ### GITHUB DEPOT CLUSTERS ###
       with Cluster("SCM - GitHub Depot Contents", graph_attr=cluster_graph_blue):
